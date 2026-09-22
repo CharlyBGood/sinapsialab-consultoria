@@ -1,0 +1,38 @@
+/* Base — reset mínimo y tipografía de documento. */
+html { color-scheme: light; }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+h1 {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 10vw, 62px);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 6vw, 34px);
+  line-height: 1.12;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h3 { margin: 0; font-size: 18px; }
+
+p { margin: 0; text-wrap: pretty; }
+
+img { max-width: 100%; }

@@ -1,0 +1,6 @@
+/* Impresión — la página se manda mucho como PDF. */
+@media print {
+  body { background: #fff; }
+  .cta { display: none; }
+  section { break-inside: avoid; }
+}

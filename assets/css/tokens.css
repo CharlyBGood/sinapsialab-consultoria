@@ -1,0 +1,32 @@
+/* Tokens — única fuente de verdad del color.
+   Cambiar un valor acá lo cambia en toda la página. */
+:root {
+  --ground:     #FAF7F2; /* fondo */
+  --sunk:       #EFEAE1; /* bloques destacados */
+  --ink:        #16181C; /* texto principal */
+  --muted:      #5C6169; /* texto secundario */
+  --line:       #DDD6C9; /* separadores finos */
+  --hard:       #16181C; /* separadores y fondos fuertes */
+  --accent:     #BF5722; /* cobre: números, botones, bordes */
+  --accent-tx:  #A0461B; /* cobre oscuro: texto chico sobre fondo claro */
+  --on-accent:  #FFFFFF; /* texto sobre cobre */
+  --good:       #167344; /* verde: bloque "para avanzar" */
+
+  /* Sobre fondo oscuro (bloque de precio) */
+  --on-hard-dim:    #C9BFAF;
+  --on-hard-soft:   #D8D0C4;
+
+  /* Marca SinapsiaLab (footer) — no derivan de la paleta de esta página */
+  --sl-bg-1:   #0c070f;
+  --sl-bg-2:   #150a1a;
+  --sl-bg-3:   #1a0f20;
+  --sl-text:   #c8b8d8;
+  --sl-grad-1: #ec4899;
+  --sl-grad-2: #facc15;
+  --sl-grad-3: #3b82f6;
+
+  /* Tipografías */
+  --font-body:    'Archivo', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-brand:   'Poppins', system-ui, sans-serif;
+}

@@ -5,75 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Starter Pack Digital — SinapsiaLab</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&family=Poppins:wght@400;700&display=swap">
-<style>
-  :root {
-    --ground:#FAF7F2; --sunk:#EFEAE1; --ink:#16181C; --muted:#5C6169;
-    --line:#DDD6C9; --hard:#16181C; --accent:#BF5722; --accent-tx:#A0461B;
-    --on-accent:#FFFFFF; --good:#167344;
-  }
-  html { color-scheme: light; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--ground); color:var(--ink);
-    font-family:'Archivo',system-ui,sans-serif; font-size:16px; line-height:1.55; }
-  .wrap { max-width:760px; margin:0 auto; padding-inline:20px; }
-  section { padding-block:40px; border-top:1px solid var(--line); }
-  section:first-of-type { border-top:0; }
-  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-tx); }
-  h1 { font-family:'Fraunces',Georgia,serif; font-size:clamp(38px,10vw,62px); line-height:1.02;
-    font-weight:600; letter-spacing:-.02em; margin:12px 0 0; text-wrap:balance; }
-  h2 { font-family:'Fraunces',Georgia,serif; font-size:clamp(26px,6vw,34px); line-height:1.12;
-    font-weight:600; margin:0 0 20px; text-wrap:balance; }
-  h3 { font-size:18px; margin:0; }
-  p { margin:0; text-wrap:pretty; }
-  .lede { font-size:clamp(18px,4.4vw,21px); font-weight:500; margin-top:16px; }
-  .muted { color:var(--muted); }
-
-  .items { display:flex; flex-direction:column; }
-  .item { display:flex; gap:16px; padding-block:18px; border-top:1px solid var(--line); }
-  .item:first-child { border-top:2px solid var(--hard); }
-  .item:last-child { border-bottom:1px solid var(--line); }
-  .item__n { flex-shrink:0; width:36px; font-family:'Fraunces',Georgia,serif; font-size:28px;
-    font-weight:600; color:var(--accent); line-height:1.1; }
-  .item__b { display:flex; flex-direction:column; gap:6px; }
-  .item__b p { font-size:15px; color:var(--muted); }
-
-  .steps { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
-  .steps li { display:flex; gap:14px; }
-  .steps b { flex-shrink:0; width:26px; height:26px; border-radius:50%; background:var(--hard);
-    color:var(--ground); display:inline-flex; align-items:center; justify-content:center; font-size:13px; }
-
-  .split { display:grid; grid-template-columns:1fr; gap:14px; }
-  .box { padding:18px 20px; background:var(--sunk); border-left:4px solid var(--accent); }
-  .box--good { border-left-color:var(--good); }
-  .box h3 { margin-bottom:6px; }
-
-  .price { background:var(--hard); color:var(--ground); padding:26px 24px;
-    display:flex; flex-direction:column; gap:14px; }
-  .price__lbl { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#C9BFAF; }
-  .price__n { font-family:'Fraunces',Georgia,serif; font-size:44px; font-weight:600; line-height:1; }
-  .price__note { font-size:14px; color:#D8D0C4; }
-  .cta { display:inline-flex; justify-content:center; align-items:center; min-height:52px;
-    margin-top:22px; padding:14px 26px; background:var(--accent); color:var(--on-accent);
-    font-weight:700; font-size:17px; text-decoration:none; }
-  .cta:focus-visible { outline:3px solid var(--accent-tx); outline-offset:3px; }
-
-  @media (min-width:720px) {
-    .split { grid-template-columns:1fr 1fr; }
-    .price { flex-direction:row; justify-content:space-between; align-items:center; }
-    .price__note { max-width:300px; }
-  }
-
-  /* footer de marca SinapsiaLab */
-  .sl-footer { display:flex; justify-content:center; align-items:center; gap:8px; width:100%;
-    padding:16px 0; margin-top:40px;
-    background:linear-gradient(to right,#0c070f,#150a1a,#1a0f20); font-family:'Poppins',system-ui,sans-serif; }
-  .sl-footer__t { margin:0; font-size:12px; color:#c8b8d8; }
-  .sl-footer__a { font-size:16px; font-weight:700; text-decoration:none;
-    background:linear-gradient(to right,#ec4899 0%,#facc15 50%,#3b82f6 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
-
-  @media print { .cta { display:none; } body { background:#fff; } section { break-inside:avoid; } }
-</style>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/print.css">
 </head>
 <body>
 <main class="wrap">
@@ -151,6 +87,6 @@
   <p class="sl-footer__t">© <span id="sl-year">2026</span> Creado con ❤️ por</p>
   <a class="sl-footer__a" href="https://www.sinapsialab.com" target="_blank" rel="noopener noreferrer">SinapsiaLab</a>
 </footer>
-<script>document.getElementById('sl-year').textContent = new Date().getFullYear();</script>
+<script src="assets/js/year.js" defer></script>
 </body>
 </html>

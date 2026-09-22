@@ -1,0 +1,188 @@
+/* Componentes — cada bloque de la página, en el orden en que aparece. */
+
+/* --- Texto auxiliar --- */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent-tx);
+}
+
+.lede {
+  margin-top: 16px;
+  font-size: clamp(18px, 4.4vw, 21px);
+  font-weight: 500;
+}
+
+.muted { color: var(--muted); }
+
+/* --- Qué te llevás: lista numerada --- */
+.items {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: 16px;
+  padding-block: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.item:first-child { border-top: 2px solid var(--hard); }
+.item:last-child  { border-bottom: 1px solid var(--line); }
+
+.item__n {
+  flex-shrink: 0;
+  width: 36px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+.item__b {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item__b p {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* --- Cómo funciona: pasos --- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.steps li {
+  display: flex;
+  gap: 14px;
+}
+
+.steps b {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--hard);
+  color: var(--ground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* --- Y después: bloques --- */
+.box {
+  padding: 18px 20px;
+  background: var(--sunk);
+  border-left: 4px solid var(--accent);
+}
+
+.box--good { border-left-color: var(--good); }
+
+.box h3 { margin-bottom: 6px; }
+
+/* --- Precio --- */
+.price {
+  background: var(--hard);
+  color: var(--ground);
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.price__lbl {
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--on-hard-dim);
+}
+
+.price__n {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.price__note {
+  font-size: 14px;
+  color: var(--on-hard-soft);
+}
+
+@media (min-width: 720px) {
+  .price {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .price__note { max-width: 300px; }
+}
+
+/* --- Botón --- */
+.cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 52px;
+  margin-top: 22px;
+  padding: 14px 26px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.cta:focus-visible {
+  outline: 3px solid var(--accent-tx);
+  outline-offset: 3px;
+}
+
+/* --- Footer de marca SinapsiaLab ---
+   Convención compartida con el resto de los sitios y apps.
+   Spec: footer-sinapsialab.html. No tocar sin actualizar los demás. */
+.sl-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 0;
+  margin-top: 40px;
+  background: linear-gradient(to right, var(--sl-bg-1), var(--sl-bg-2), var(--sl-bg-3));
+  font-family: var(--font-brand);
+}
+
+.sl-footer__t {
+  margin: 0;
+  font-size: 12px;
+  color: var(--sl-text);
+}
+
+.sl-footer__a {
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(to right, var(--sl-grad-1) 0%, var(--sl-grad-2) 50%, var(--sl-grad-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sl-footer__a:focus-visible {
+  outline: 2px solid var(--sl-grad-2);
+  outline-offset: 3px;
+}
