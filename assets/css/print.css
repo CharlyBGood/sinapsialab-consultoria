@@ -3,4 +3,6 @@
   body { background: #fff; }
   .cta { display: none; }
   section { break-inside: avoid; }
+  h1 { text-shadow: none; }
+  .item, .box, .price, .steps b { box-shadow: none; }
 }

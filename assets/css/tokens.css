@@ -1,22 +1,41 @@
-/* Tokens — única fuente de verdad del color.
-   Cambiar un valor acá lo cambia en toda la página. */
+/* Tokens — variante CLARA del sistema retro de SinapsiaLab.
+   Mismos gestos que el sitio (offset duro, mono en títulos, bordes 2px),
+   pero sobre fondo claro y con la rampa violeta desaturada.
+   La referencia oscura vive en sinapsialab-astro/DESIGN.md. */
 :root {
-  --ground:     #FAF7F2; /* fondo */
-  --sunk:       #EFEAE1; /* bloques destacados */
-  --ink:        #16181C; /* texto principal */
-  --muted:      #5C6169; /* texto secundario */
-  --line:       #DDD6C9; /* separadores finos */
-  --hard:       #16181C; /* separadores y fondos fuertes */
-  --accent:     #BF5722; /* cobre: números, botones, bordes */
-  --accent-tx:  #A0461B; /* cobre oscuro: texto chico sobre fondo claro */
-  --on-accent:  #FFFFFF; /* texto sobre cobre */
-  --good:       #167344; /* verde: bloque "para avanzar" */
+  /* Superficies — lila apagado, sin blancos puros */
+  --ground:    #F3F0F5; /* fondo de página */
+  --surface:   #FAF8FB; /* cards */
+  --sunk:      #EAE4EE; /* bloques destacados */
+
+  /* Texto */
+  --ink:       #241B2B; /* violeta casi negro */
+  --muted:     #5E5468; /* secundario */
+  --line:      #D9D0E0; /* separadores */
+  --hard:      #241B2B; /* separadores y fondos fuertes */
+
+  /* Acento — cobre apagado, no naranja brillante */
+  --accent:     #C9663A; /* sobre fondos oscuros y elementos grandes */
+  --accent-tx:  #A2502C; /* texto chico y fondo de botón (contraste AA) */
+  --on-accent:  #FFFFFF;
+  --good:       #4A7C59; /* verde apagado */
+
+  /* Offset retro — el gesto central, en violeta medio apagado */
+  --retro-offset:        #C3B2D4;
+  --retro-offset-strong: #A98FC0;
+  --retro-shadow:        -4px 5px 0 0 var(--retro-offset);
+  --retro-shadow-hover:  7px -4px 0 0 var(--retro-offset-strong);
+  --retro-shadow-lg:     -6px 7px 0 0 var(--retro-offset);
+  --retro-radius:        5px;
+  --retro-radius-lg:     8px;
+  --retro-border:        2px;
+  --retro-ghost:         rgba(201, 102, 58, .16); /* fantasma del título */
 
   /* Sobre fondo oscuro (bloque de precio) */
-  --on-hard-dim:    #C9BFAF;
-  --on-hard-soft:   #D8D0C4;
+  --on-hard-dim:  #B9ADC4;
+  --on-hard-soft: #D5CCDD;
 
-  /* Marca SinapsiaLab (footer) — no derivan de la paleta de esta página */
+  /* Marca SinapsiaLab (footer) — fijos, no derivan de esta paleta */
   --sl-bg-1:   #0c070f;
   --sl-bg-2:   #150a1a;
   --sl-bg-3:   #1a0f20;
@@ -25,8 +44,9 @@
   --sl-grad-2: #facc15;
   --sl-grad-3: #3b82f6;
 
-  /* Tipografías */
-  --font-body:    'Archivo', system-ui, sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
+  /* Tipografía híbrida: mono en títulos y botones, Poppins en párrafos */
+  --font-display: 'Source Code Pro', ui-monospace, monospace;
+  --font-body:    'Poppins', system-ui, sans-serif;
   --font-brand:   'Poppins', system-ui, sans-serif;
+  --font-display-weight: 300;
 }
