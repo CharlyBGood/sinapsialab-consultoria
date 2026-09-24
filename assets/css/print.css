@@ -1,8 +1,15 @@
-/* Impresión — la página se manda mucho como PDF. */
+/* Impresión — la página se manda mucho como PDF.
+   El tema es oscuro; para impresión forzamos texto oscuro sobre blanco. */
 @media print {
-  body { background: #fff; }
+  body, .price { background: #fff; color: #241b2b; }
   .cta { display: none; }
-  section { break-inside: avoid; }
-  h1 { text-shadow: none; }
-  .item, .box, .price, .steps b { box-shadow: none; }
+  section { break-inside: avoid; border-top-color: #ddd; }
+  h1, h2, h3, .price__n { color: #241b2b; text-shadow: none; }
+  .item, .box, .steps b {
+    background: #fff;
+    border-color: #ccc;
+    box-shadow: none;
+  }
+  .item__b p, .box p, .lede, .price__lbl, .price__note { color: #4a4453; }
+  .item__n { color: var(--accent); }
 }

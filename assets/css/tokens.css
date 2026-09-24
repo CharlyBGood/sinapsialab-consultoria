@@ -1,41 +1,46 @@
-/* Tokens — variante CLARA del sistema retro de SinapsiaLab.
-   Mismos gestos que el sitio (offset duro, mono en títulos, bordes 2px),
-   pero sobre fondo claro y con la rampa violeta desaturada.
-   La referencia oscura vive en sinapsialab-astro/DESIGN.md. */
+/* Tokens — mapeados 1:1 a los tokens portfolio-* de sinapsialab-astro/src/styles/global.css
+   (ver DESIGN.md). Fondo casi negro, rampa violeta para offsets/cards, naranja de acento. */
 :root {
-  /* Superficies — lila apagado, sin blancos puros */
-  --ground:    #F3F0F5; /* fondo de página */
-  --surface:   #FAF8FB; /* cards */
-  --sunk:      #EAE4EE; /* bloques destacados */
+  /* Superficies — portfolio-deep / dark / base */
+  --ground:    #0c070f; /* portfolio-deep — fondo principal */
+  --surface:   #150a1a; /* portfolio-dark — cards planas (bloques "Y después") */
+  --sunk:      #1a0f20; /* portfolio-base — bloque de precio */
 
-  /* Texto */
-  --ink:       #241B2B; /* violeta casi negro */
-  --muted:     #5E5468; /* secundario */
-  --line:      #D9D0E0; /* separadores */
-  --hard:      #241B2B; /* separadores y fondos fuertes */
+  /* Texto — portfolio-text / text-light / light */
+  --ink:       #c8b8d8; /* portfolio-text — cuerpo */
+  --ink-light: #e0d0f0; /* portfolio-text-light — énfasis (lede, cards) */
+  --heading:   #cdb7e4; /* portfolio-light — h1/h2/precio */
+  --muted:     #c8b8d8; /* alias de --ink para texto secundario */
+  --line:      #2a1530; /* portfolio-medium — separadores y bordes */
+  --hard:      #0c070f;
 
-  /* Acento — cobre apagado, no naranja brillante */
-  --accent:     #C9663A; /* sobre fondos oscuros y elementos grandes */
-  --accent-tx:  #A2502C; /* texto chico y fondo de botón (contraste AA) */
-  --on-accent:  #FFFFFF;
-  --good:       #4A7C59; /* verde apagado */
+  /* Acento — portfolio-orange, sólido (no gradiente) */
+  --accent:     #e7762b; /* CTA, números, borde-izq. de la card "buena" */
+  --accent-tx:  #f0965a; /* variante clara para hover puntual */
+  --on-accent:  #0c070f; /* texto sobre fondos naranjas */
 
-  /* Offset retro — el gesto central, en violeta medio apagado */
-  --retro-offset:        #C3B2D4;
-  --retro-offset-strong: #A98FC0;
+  /* Rampa violeta — portfolio-gradient-1..4 (cards vivid y offsets retro) */
+  --grad-1: #4a2560;
+  --grad-2: #5a3570;
+  --grad-3: #6a3590;
+  --grad-4: #7a45a0;
+
+  /* Offset retro — clon adaptado de NoStateNode, violeta del brand */
+  --retro-offset:        var(--grad-2);
+  --retro-offset-strong: var(--grad-4);
   --retro-shadow:        -4px 5px 0 0 var(--retro-offset);
   --retro-shadow-hover:  7px -4px 0 0 var(--retro-offset-strong);
   --retro-shadow-lg:     -6px 7px 0 0 var(--retro-offset);
   --retro-radius:        5px;
   --retro-radius-lg:     8px;
   --retro-border:        2px;
-  --retro-ghost:         rgba(201, 102, 58, .16); /* fantasma del título */
+  --retro-ghost:         rgba(231, 118, 43, 0.55); /* fantasma naranja del título */
 
   /* Sobre fondo oscuro (bloque de precio) */
-  --on-hard-dim:  #B9ADC4;
-  --on-hard-soft: #D5CCDD;
+  --on-hard-dim:  var(--ink);
+  --on-hard-soft: var(--ink-light);
 
-  /* Marca SinapsiaLab (footer) — fijos, no derivan de esta paleta */
+  /* Marca SinapsiaLab — gradiente decorativo (.gradient-link), solo para el wordmark */
   --sl-bg-1:   #0c070f;
   --sl-bg-2:   #150a1a;
   --sl-bg-3:   #1a0f20;

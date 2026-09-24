@@ -9,15 +9,20 @@
   font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--accent-tx);
   text-decoration: none;
+  background: linear-gradient(90deg, var(--sl-grad-1) 0%, var(--sl-grad-2) 50%, var(--sl-grad-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   border-bottom: 2px solid transparent;
 }
 
-.eyebrow:hover { border-bottom-color: var(--accent-tx); }
+.eyebrow:hover {
+  border-bottom-color: var(--sl-grad-2);
+}
 
 .eyebrow:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--sl-grad-2);
   outline-offset: 4px;
 }
 
@@ -25,12 +30,12 @@
   margin-top: 18px;
   font-size: clamp(17px, 4.2vw, 20px);
   font-weight: 400;
-  color: var(--muted);
+  color: var(--ink-light);
 }
 
 .muted { color: var(--muted); }
 
-/* --- Qué te llevás: cards con offset duro --- */
+/* --- Qué te llevás: cards "vivid", ciclan la rampa violeta como card-retro-vivid --- */
 .items {
   display: flex;
   flex-direction: column;
@@ -41,11 +46,14 @@
   display: flex;
   gap: 16px;
   padding: 18px 20px;
-  background: var(--surface);
-  border: var(--retro-border) solid var(--line);
+  background: var(--grad-1);
+  border: var(--retro-border) solid var(--grad-4);
   border-radius: var(--retro-radius);
   box-shadow: var(--retro-shadow);
 }
+
+.item:nth-child(3n+2) { background: var(--grad-2); }
+.item:nth-child(3n+3) { background: var(--grad-3); }
 
 .item__n {
   flex-shrink: 0;
@@ -54,7 +62,7 @@
   font-size: 26px;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--accent-tx);
+  color: var(--accent);
 }
 
 .item__b {
@@ -63,9 +71,12 @@
   gap: 6px;
 }
 
+.item__b h3 { color: var(--ink-light); }
+
 .item__b p {
   font-size: 15px;
-  color: var(--muted);
+  color: var(--ink-light);
+  opacity: .9;
 }
 
 /* --- Cómo funciona: pasos --- */
@@ -89,9 +100,9 @@
   width: 28px;
   height: 28px;
   border-radius: var(--retro-radius);
-  border: var(--retro-border) solid var(--ink);
-  background: var(--surface);
-  color: var(--ink);
+  border: var(--retro-border) solid var(--grad-4);
+  background: var(--grad-3);
+  color: var(--ink-light);
   font-family: var(--font-display);
   font-weight: 700;
   display: inline-flex;
@@ -101,31 +112,33 @@
   box-shadow: -2px 3px 0 0 var(--retro-offset);
 }
 
-/* --- Y después: bloques --- */
+/* --- Y después: bloques (card-retro sobre portfolio-dark) --- */
 .box {
   padding: 18px 20px;
-  background: var(--sunk);
+  background: var(--surface);
   border: var(--retro-border) solid var(--line);
-  border-left-width: 5px;
-  border-left-color: var(--accent);
   border-radius: var(--retro-radius);
   box-shadow: var(--retro-shadow);
 }
 
-.box--good { border-left-color: var(--good); }
+.box--good {
+  border-left-width: 5px;
+  border-left-color: var(--accent);
+}
 
-.box h3 { margin-bottom: 8px; }
+.box h3 { color: var(--heading); margin-bottom: 8px; }
 
-.box p { color: var(--muted); font-size: 15px; }
+.box p { color: var(--ink); font-size: 15px; }
 
-/* --- Precio --- */
+/* --- Precio (card-retro-lg sobre portfolio-base) --- */
 .price {
-  background: var(--hard);
-  color: var(--ground);
+  background: var(--sunk);
+  color: var(--heading);
   padding: 26px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  border: var(--retro-border) solid var(--line);
   border-radius: var(--retro-radius-lg);
   box-shadow: var(--retro-shadow-lg);
 }
@@ -144,11 +157,12 @@
   font-weight: 700;
   line-height: 1.1;
   margin-top: 6px;
+  color: var(--heading);
 }
 
 .price__note {
   font-size: 14px;
-  color: var(--on-hard-soft);
+  color: var(--on-hard-dim);
 }
 
 @media (min-width: 720px) {
@@ -160,7 +174,7 @@
   .price__note { max-width: 300px; }
 }
 
-/* --- Botón retro: mono, capitalize, offset que salta en hover --- */
+/* --- Botón retro (btn-retro): naranja sólido, mono, offset que salta en hover --- */
 .cta {
   display: inline-flex;
   justify-content: center;
@@ -168,26 +182,27 @@
   min-height: 52px;
   margin-top: 24px;
   padding: 14px 26px;
-  background: var(--accent-tx);
+  background: var(--accent);
   color: var(--on-accent);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 17px;
   letter-spacing: .06em;
   text-decoration: none;
-  border: var(--retro-border) solid var(--ink);
+  border: var(--retro-border) solid var(--surface);
   border-radius: var(--retro-radius);
   box-shadow: var(--retro-shadow);
-  transition: box-shadow .15s ease, opacity .15s ease;
+  transition: box-shadow .15s ease, opacity .15s ease, font-weight .15s ease;
 }
 
 .cta:hover {
   box-shadow: var(--retro-shadow-hover);
-  opacity: .92;
+  opacity: .9;
+  font-weight: 700;
 }
 
 .cta:focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -230,3 +245,135 @@
   outline: 2px solid var(--sl-grad-2);
   outline-offset: 3px;
 }
+
+/* --- Así se ve lo que te llevás: maquetas de los entregables ---
+   El "chrome" (tags, notas) usa los tokens del sistema. El interior del
+   teléfono y de la hoja NO: representan el material del cliente, así que
+   llevan su propia paleta clara, como en el sitio real. */
+.demo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 26px;
+}
+
+@media (min-width: 720px) {
+  .demo { grid-template-columns: 270px 1fr; align-items: start; }
+}
+
+.tag {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.demo__cap {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  opacity: .85;
+}
+
+/* --- Maqueta de teléfono --- */
+.phone {
+  width: 100%;
+  max-width: 270px;
+  background: #16181C;
+  border: var(--retro-border) solid var(--line);
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: var(--retro-shadow);
+}
+
+.phone__s {
+  background: #FFFFFF;
+  border-radius: 22px;
+  overflow: hidden;
+  color: #16181C;
+}
+
+.phone__hd { background: #1F2A36; padding: 16px 14px; }
+.phone__ttl { color: #FFFFFF; font-size: 14px; font-weight: 700; line-height: 1.3; }
+.phone__sub { margin-top: 4px; color: #B9C4D0; font-size: 11px; }
+
+.phone__shot {
+  height: 86px;
+  background: #E8E2D7;
+  border-bottom: 1px solid #D5CCBD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #6B6257;
+}
+
+.phone__body { padding: 13px 14px; }
+.phone__h { font-size: 12px; font-weight: 700; color: #16181C; }
+.phone__h--mt { margin-top: 13px; }
+.phone__list { margin-top: 7px; display: flex; flex-direction: column; gap: 5px; }
+.phone__li { font-size: 11px; color: #4A4F57; }
+
+.phone__grid {
+  margin-top: 7px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.phone__cell {
+  height: 46px;
+  background: #E8E2D7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #6B6257;
+}
+
+.phone__btn {
+  margin-top: 14px;
+  background: #167344;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 11px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* --- Maqueta del plan de acción --- */
+.sheet {
+  background: #FFFFFF;
+  color: #16181C;
+  border: var(--retro-border) solid var(--line);
+  border-radius: var(--retro-radius);
+  padding: 24px 22px;
+  box-shadow: var(--retro-shadow);
+}
+
+.sheet__ttl { font-family: var(--font-display); font-size: 19px; font-weight: 700; }
+.sheet__meta { margin-top: 4px; font-size: 12px; color: #6B6257; }
+.sheet__h { margin-top: 16px; font-size: 13px; font-weight: 700; }
+.sheet__p { margin-top: 5px; font-size: 13px; line-height: 1.55; color: #4A4F57; }
+
+.sheet__ol {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sheet__ol li { display: flex; gap: 10px; font-size: 13px; line-height: 1.5; color: #4A4F57; }
+.sheet__ol b { color: #16181C; }
+.sheet__num { flex-shrink: 0; width: 14px; font-weight: 700; color: #BF5722; }
+
+/* Nota al pie de la sección, sin el borde verde de la card "buena" */
+.box--note { border-left-color: var(--grad-4); }
+.box--note p { color: var(--ink); }
