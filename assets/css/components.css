@@ -261,6 +261,14 @@
   .demo { grid-template-columns: 270px 1fr; align-items: start; }
 }
 
+/* El teléfono ocupa una columna angosta; los dos documentos van anchos,
+   uno debajo del otro, para que se lean como documentos y no como tiras. */
+@media (min-width: 720px) {
+  .demo > div:nth-child(1) { grid-row: span 2; }
+  .demo > div:nth-child(2),
+  .demo > div:nth-child(3) { grid-column: 2; }
+}
+
 .tag {
   font-family: var(--font-display);
   font-size: 12px;
@@ -381,3 +389,95 @@
 /* Nota al pie de la sección, sin el borde verde de la card "buena" */
 .box--note { border-left-color: var(--grad-4); }
 .box--note p { color: var(--ink); }
+
+/* --- Las tres piezas, arriba de las maquetas --- */
+.pieces {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .pieces { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.piece {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: var(--retro-border) solid var(--line);
+  border-radius: var(--retro-radius);
+  box-shadow: -3px 4px 0 0 var(--retro-offset);
+}
+
+.piece__n {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.piece__t { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--ink-light); }
+.piece__d { font-size: 13px; color: var(--muted); opacity: .85; }
+
+/* --- Estado de los frentes, dentro del reporte ---
+   Encoding por texto + color: el estado se lee sin depender del color. */
+.state { list-style: none; margin: 8px 0 0; padding: 0; }
+
+.state li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid #E8E2D7;
+  font-size: 13px;
+}
+
+.state li:last-child { border-bottom: 0; }
+.state__k { color: #4A4F57; }
+
+.state__v {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.state__v--no  { background: #FBE9E2; color: #9A3B14; }
+.state__v--mid { background: #FBF1D9; color: #7A5A12; }
+.state__v--ok  { background: #E3F0E8; color: #1B5E36; }
+
+
+/* --- Maqueta de la guía --- */
+.sheet--guide { display: flex; flex-direction: column; }
+
+.guide__idx {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.guide__idx li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid #E8E2D7;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4A4F57;
+}
+
+.guide__idx li:last-child { border-bottom: 0; }
+.guide__n { flex-shrink: 0; width: 14px; font-weight: 700; color: #BF5722; }
+.guide__foot { margin-top: 12px; font-size: 12px; }
