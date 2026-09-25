@@ -261,12 +261,11 @@
   .demo { grid-template-columns: 270px 1fr; align-items: start; }
 }
 
-/* El teléfono ocupa una columna angosta; los dos documentos van anchos,
-   uno debajo del otro, para que se lean como documentos y no como tiras. */
+/* El teléfono y la guía van uno junto al otro; el plan de acción, más
+   ancho y compacto, va debajo de los dos ocupando todo el ancho. */
 @media (min-width: 720px) {
-  .demo > div:nth-child(1) { grid-row: span 2; }
-  .demo > div:nth-child(2),
-  .demo > div:nth-child(3) { grid-column: 2; }
+  .demo > div:nth-child(2) { grid-column: 2; }
+  .demo > div:nth-child(3) { grid-column: 1 / -1; }
 }
 
 .tag {
@@ -385,6 +384,23 @@
 .sheet__ol li { display: flex; gap: 10px; font-size: 13px; line-height: 1.5; color: #4A4F57; }
 .sheet__ol b { color: #16181C; }
 .sheet__num { flex-shrink: 0; width: 14px; font-weight: 700; color: #BF5722; }
+
+/* Versión ancha y compacta: el cuerpo se reparte en columnas en vez de
+   apilarse, para que ocupe menos alto sin perder el resto de la maqueta. */
+.sheet--plan .sheet__h:first-child,
+.sheet--plan .sheet__col .sheet__h:first-child { margin-top: 0; }
+
+.sheet__grid {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 0;
+}
+
+@media (min-width: 640px) {
+  .sheet__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; }
+  .sheet__col + .sheet__col { border-left: 1px solid #E8E2D7; padding-left: 24px; }
+}
 
 /* Nota al pie de la sección, sin el borde verde de la card "buena" */
 .box--note { border-left-color: var(--grad-4); }
