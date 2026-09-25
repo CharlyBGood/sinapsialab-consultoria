@@ -279,6 +279,10 @@
   opacity: .85;
 }
 
+.demo__cap--note {
+  font-size: 11px;
+}
+
 /* --- Maqueta de teléfono --- */
 .phone {
   width: 100%;
