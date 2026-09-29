@@ -22,3 +22,12 @@ si cambia, hay que actualizarlo en todos.
 - Esta versión: estilo claro, independiente, para publicar en un subdominio propio.
 
 Al editar textos, mantener sincronizadas las dos versiones.
+
+## Única fuente de verdad
+
+Esta es la versión publicada del Starter Pack: https://starter.sinapsialab.com/
+
+La página que vivía en `sinapsialab-astro` (`/starter/`) fue eliminada para no
+mantener dos copias. En ese repo sobrevive solo la tarjeta del home
+(`StarterPackSection.tsx` + `starter/content.ts`), que enlaza acá; si cambia el
+precio o el texto del hero, hay que replicarlo en ese `content.ts`.
