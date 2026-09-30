@@ -273,9 +273,6 @@
                 Una sola cosa para arrancar esta semana, por tu cuenta.
               </p>
             </div>
-            <p class="demo__cap">
-              Con esta entrega tenés lo que necesitás para empezar.
-            </p>
           </div>
         </div>
 
@@ -315,11 +312,11 @@
             <h3>Continuando con SinapsiaLab</h3>
             <p>
               Una vez que decidas avanzar, recibirás un presupuesto a medida, y
-              trabajamos sobre lo pautado.
+              trabajamos sobre lo que ya tenemos.
             </p>
           </div>
           <div class="box">
-            <h3>Es tuyo</h3>
+            <h3>Lo que te queda</h3>
             <p>
               El sitio, la guía y el plan de acción detallado te quedan como
               brújula para que puedas avanzar.
@@ -340,14 +337,12 @@
             de los 30 días desde la entrega, se toma como adelanto.
           </p>
         </div>
-        <a
-          class="cta"
-          href="https://wa.me/541136429294?text=Hola!%20Quiero%20reservar%20mi%20Starter%20Pack%20Digital."
-          target="_blank"
-          rel="noopener noreferrer"
-          >Quiero mi Starter Pack</a
-        >
+        <button class="cta cta--full" type="button" id="rsv-open">
+          Reservar la consultoría
+        </button>
+
       </section>
+
     </main>
 
     <footer class="sl-footer">
@@ -362,6 +357,92 @@
         >SinapsiaLab</a
       >
     </footer>
+    <a
+      class="wa"
+      href="https://wa.me/541136429294?text=Hola!%20Tengo%20una%20consulta%20sobre%20el%20Starter%20Pack%20Digital."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Consultar por WhatsApp"
+    >
+      <svg class="wa__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/>
+        <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.36c0-4.54 3.7-8.23 8.23-8.23 2.2 0 4.26.86 5.82 2.41a8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.7 8.22-8.24 8.22z"/>
+      </svg>
+      <span class="wa__label">Consultar por WhatsApp</span>
+    </a>
+
+
+    <!-- Reserva: pantalla completa que baja desde arriba, como las secciones de sinapsialab.com (× arriba a la derecha) -->
+    <div class="rsv-screen" id="rsv-modal" hidden>
+        <div
+        class="rsv-screen__body"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rsv-modal-title"
+      >
+        <button class="rsv-screen__close" type="button" data-rsv-close aria-label="Cerrar">
+          &times;
+        </button>
+        <h2 class="rsv-screen__title" id="rsv-modal-title">Reservar la consultoría</h2>
+          <p class="rsv__intro" id="rsv-intro">
+            Para emitir tu recibo y coordinar la charla necesito estos datos.
+          </p>
+
+          <form class="rsv" id="rsv-form" novalidate>
+            <div class="rsv__grid">
+              <div class="rsv__field">
+                <label for="rsv-nombre">Tu nombre</label>
+                <input class="rsv__input" id="rsv-nombre" name="nombre" type="text" autocomplete="name" required>
+              </div>
+
+              <div class="rsv__field">
+                <label for="rsv-negocio">Tu negocio o proyecto</label>
+                <input class="rsv__input" id="rsv-negocio" name="negocio" type="text" required>
+              </div>
+
+              <div class="rsv__field">
+                <label for="rsv-email">Tu email</label>
+                <input class="rsv__input" id="rsv-email" name="email" type="email" autocomplete="email" required>
+                <span class="rsv__hint">Ahí te llegan el recibo y la entrega.</span>
+              </div>
+
+              <div class="rsv__field">
+                <label for="rsv-wpp">Tu WhatsApp</label>
+                <input class="rsv__input" id="rsv-wpp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required>
+                <span class="rsv__hint">Con característica, sin el 0 ni el 15.</span>
+              </div>
+
+              <div class="rsv__field rsv__field--full">
+                <label for="rsv-material">¿Tenés un flyer de tu proyecto?</label>
+                <select class="rsv__input" id="rsv-material" name="material">
+                  <option value="flyer">Sí, tengo flyer</option>
+                  <option value="fotos">No, mando hasta 5 fotos</option>
+                  <option value="nada">Todavía no tengo nada</option>
+                </select>
+              </div>
+            </div>
+
+            <p class="rsv__error" id="rsv-error" role="alert" hidden></p>
+
+            <button class="cta rsv__submit" type="submit">Continuar al pago</button>
+            <p class="cta__note">Se abre el checkout de MercadoPago. Los datos de tu tarjeta los maneja MercadoPago, no esta página.</p>
+          </form>
+
+          <div class="rsv__done" id="rsv-done" hidden>
+            <p class="tag">Tu reserva</p>
+            <div class="rsv__summary">
+              <div class="rsv__row"><span>Starter Pack Digital</span><b>$70.000 ARS</b></div>
+              <div class="rsv__row rsv__row--sub"><span>Charla + sitio + guía + plan de acción</span></div>
+              <dl class="rsv__data" id="rsv-datos"></dl>
+            </div>
+            <a class="cta" id="rsv-pagar" href="[LINK_DE_PAGO]" target="_blank" rel="noopener noreferrer">Pagar con MercadoPago</a>
+            <button class="rsv__back" type="button" id="rsv-back">Corregir mis datos</button>
+          </div>
+        
+      </div>
+    </div>
+
     <script src="assets/js/year.js" defer></script>
+    <script src="assets/js/reserva.js" defer></script>
   </body>
 </html>
