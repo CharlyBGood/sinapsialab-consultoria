@@ -716,3 +716,21 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+
+/* --- Reserva: campo trampa anti-bots, botón de pago y estado de resultado --- */
+.rsv__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.cta:disabled { opacity: .6; cursor: progress; box-shadow: var(--retro-shadow); }
+
+.rsv__done .rsv__error { margin-top: 16px; }
+.rsv__done .cta--full { margin-top: 20px; }
+
+.rsv__result { margin-top: 4px; }
+.rsv__result .cta { margin-top: 20px; }

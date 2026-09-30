@@ -424,8 +424,14 @@
 
             <p class="rsv__error" id="rsv-error" role="alert" hidden></p>
 
-            <button class="cta rsv__submit" type="submit">Continuar al pago</button>
-            <p class="cta__note">Se abre el checkout de MercadoPago. Los datos de tu tarjeta los maneja MercadoPago, no esta página.</p>
+            <div class="rsv__trap" aria-hidden="true">
+              <label>No completar este campo
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+              </label>
+            </div>
+
+            <button class="cta rsv__submit" type="submit">Continuar</button>
+            <p class="cta__note">Primero revisás tus datos y después pasás a un checkout de pago seguro. Esta página no recibe ni guarda los datos de tu tarjeta.</p>
           </form>
 
           <div class="rsv__done" id="rsv-done" hidden>
@@ -435,8 +441,15 @@
               <div class="rsv__row rsv__row--sub"><span>Charla + sitio + guía + plan de acción</span></div>
               <dl class="rsv__data" id="rsv-datos"></dl>
             </div>
-            <a class="cta" id="rsv-pagar" href="[LINK_DE_PAGO]" target="_blank" rel="noopener noreferrer">Pagar con MercadoPago</a>
+            <p class="rsv__error" id="rsv-pay-error" role="alert" hidden></p>
+            <button class="cta cta--full" type="button" id="rsv-pagar">Ir a pagar</button>
+            <p class="cta__note">Pasás a un checkout de pago seguro. Esta página no recibe ni guarda los datos de tu tarjeta.</p>
             <button class="rsv__back" type="button" id="rsv-back">Corregir mis datos</button>
+          </div>
+
+          <div class="rsv__result" id="rsv-result" hidden>
+            <p class="rsv__intro" id="rsv-result-text"></p>
+            <button class="cta" type="button" data-rsv-close>Cerrar</button>
           </div>
         
       </div>

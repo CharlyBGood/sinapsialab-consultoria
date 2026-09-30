@@ -1,78 +1,33 @@
-// Formulario de reserva — SIMULACIÓN.
+// Reserva del Starter Pack Digital.
 //
-// Hoy valida, arma el payload y muestra el resumen. Todavía no llama a ningún
-// endpoint: cuando exista `api/public/starter-reserve` en Pfff!, se reemplaza
-// el bloque marcado más abajo por el fetch y se usa la URL que devuelva.
+// Flujo: CTA → panel a pantalla completa → el cliente completa y revisa sus datos
+// → "Ir a pagar" llama al endpoint público de Pfff!, que crea la orden y devuelve
+// el link del checkout → se lo redirige ahí. Al volver (?reserva=ok) se muestra
+// el resultado. El precio NO viaja desde acá: lo fija el servidor.
 
 (function () {
-  // --- Modal: el CTA abre la reserva como las secciones de sinapsialab.com ---
+  var ENDPOINT = 'https://pfff.sinapsialab.com/api/public/starter-reserve';
+  var TITULO = 'Reservar la consultoría';
+
   var abrir = document.getElementById('rsv-open');
   var modal = document.getElementById('rsv-modal');
-  var ultimoFoco = null;
-
-  function abrirModal() {
-    if (!modal) return;
-    ultimoFoco = document.activeElement;
-    modal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    var primero = modal.querySelector('input, select, a[href], button');
-    if (primero) primero.focus();
-  }
-
-  function cerrarModal() {
-    if (!modal || modal.classList.contains('is-closing')) return;
-    var terminar = function () {
-      modal.hidden = true;
-      modal.classList.remove('is-closing');
-      document.body.style.overflow = '';
-      if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
-    };
-    var sinAnimacion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (sinAnimacion) return terminar();
-    modal.classList.add('is-closing');
-    modal.addEventListener('animationend', terminar, { once: true });
-  }
-
-  if (abrir && modal) {
-    abrir.addEventListener('click', abrirModal);
-
-    modal.addEventListener('click', function (e) {
-      if (e.target.hasAttribute && e.target.hasAttribute('data-rsv-close')) cerrarModal();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !modal.hidden) cerrarModal();
-    });
-
-    // Tab queda encerrado dentro de la card mientras el modal está abierto
-    modal.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var f = modal.querySelectorAll('button, input, select, a[href], textarea');
-      var visibles = [];
-      for (var i = 0; i < f.length; i++) {
-        if (f[i].offsetParent !== null) visibles.push(f[i]);
-      }
-      if (!visibles.length) return;
-      var primero = visibles[0];
-      var ultimo = visibles[visibles.length - 1];
-      if (e.shiftKey && document.activeElement === primero) {
-        e.preventDefault();
-        ultimo.focus();
-      } else if (!e.shiftKey && document.activeElement === ultimo) {
-        e.preventDefault();
-        primero.focus();
-      }
-    });
-  }
-
+  var titulo = document.getElementById('rsv-modal-title');
   var form = document.getElementById('rsv-form');
-  if (!form) return;
-
+  var intro = document.getElementById('rsv-intro');
   var done = document.getElementById('rsv-done');
+  var result = document.getElementById('rsv-result');
+  var resultText = document.getElementById('rsv-result-text');
   var datos = document.getElementById('rsv-datos');
   var error = document.getElementById('rsv-error');
+  var payError = document.getElementById('rsv-pay-error');
+  var pagar = document.getElementById('rsv-pagar');
   var back = document.getElementById('rsv-back');
-  var intro = document.getElementById('rsv-intro');
+
+  if (!modal || !form) return;
+
+  var ultimoFoco = null;
+  var reserva = null;
+  var pagando = false;
 
   var MATERIAL = {
     flyer: 'Manda un flyer',
@@ -80,6 +35,72 @@
     nada: 'Todavía no tiene material',
   };
 
+  // --- Estados del panel: 'form' | 'resumen' | 'resultado' ---
+  function mostrar(estado) {
+    form.hidden = estado !== 'form';
+    intro.hidden = estado !== 'form';
+    done.hidden = estado !== 'resumen';
+    result.hidden = estado !== 'resultado';
+    modal.scrollTop = 0;
+  }
+
+  // --- Abrir / cerrar ---
+  function abrirModal(estado) {
+    ultimoFoco = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    mostrar(estado || 'form');
+    var primero = modal.querySelector(
+      estado === 'resultado' ? '[data-rsv-close]' : 'input:not([tabindex="-1"]), select, button'
+    );
+    if (primero) primero.focus();
+  }
+
+  function cerrarModal() {
+    if (modal.classList.contains('is-closing')) return;
+    var terminar = function () {
+      modal.hidden = true;
+      modal.classList.remove('is-closing');
+      document.body.style.overflow = '';
+      titulo.textContent = TITULO;
+      if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
+    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return terminar();
+    modal.classList.add('is-closing');
+    modal.addEventListener('animationend', terminar, { once: true });
+  }
+
+  if (abrir) abrir.addEventListener('click', function () { abrirModal('form'); });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target.hasAttribute && e.target.hasAttribute('data-rsv-close')) cerrarModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) cerrarModal();
+  });
+
+  // Tab queda encerrado dentro del panel mientras está abierto
+  modal.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var f = modal.querySelectorAll('button, input, select, a[href], textarea');
+    var visibles = [];
+    for (var i = 0; i < f.length; i++) {
+      if (f[i].offsetParent !== null && f[i].tabIndex !== -1) visibles.push(f[i]);
+    }
+    if (!visibles.length) return;
+    var primero = visibles[0];
+    var ultimo = visibles[visibles.length - 1];
+    if (e.shiftKey && document.activeElement === primero) {
+      e.preventDefault();
+      ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+      e.preventDefault();
+      primero.focus();
+    }
+  });
+
+  // --- Paso 1: validar y mostrar el resumen (todavía no se llama a nada) ---
   function fallo(msg) {
     error.textContent = msg;
     error.hidden = false;
@@ -94,15 +115,13 @@
     error.hidden = true;
 
     var d = new FormData(form);
-    var reserva = {
+    reserva = {
       nombre: (d.get('nombre') || '').trim(),
       negocio: (d.get('negocio') || '').trim(),
       email: (d.get('email') || '').trim(),
       whatsapp: limpiarTelefono((d.get('whatsapp') || '').trim()),
       material: d.get('material') || 'flyer',
-      producto: 'starter-pack-digital',
-      precio: 70000,
-      moneda: 'ARS',
+      website: d.get('website') || '', // campo trampa: un humano lo deja vacío
     };
 
     if (!reserva.nombre || !reserva.negocio) return fallo('Completá tu nombre y el de tu negocio.');
@@ -125,27 +144,90 @@
       datos.appendChild(dd);
     });
 
-    // --- Acá va el llamado real cuando exista el endpoint ---
-    // fetch('https://pfff.sinapsialab.com/api/public/starter-reserve', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(reserva),
-    // })
-    //   .then(r => r.json())
-    //   .then(r => { document.getElementById('rsv-pagar').href = r.url; });
-    console.log('[reserva] payload que se enviará al endpoint:', reserva);
-    // --------------------------------------------------------
-
-    form.hidden = true;
-    if (intro) intro.hidden = true;
-    done.hidden = false;
-    if (modal) modal.scrollTop = 0;
+    payError.hidden = true;
+    mostrar('resumen');
   });
 
   back.addEventListener('click', function () {
-    done.hidden = true;
-    if (intro) intro.hidden = false;
-    form.hidden = false;
-    if (modal) modal.scrollTop = 0;
+    mostrar('form');
   });
+
+  // --- Paso 2: "Ir a pagar" → endpoint → checkout ---
+  function botonListo() {
+    pagando = false;
+    pagar.disabled = false;
+    pagar.textContent = 'Ir a pagar';
+  }
+
+  function falloPago(msg) {
+    payError.textContent = msg;
+    payError.hidden = false;
+    botonListo();
+  }
+
+  pagar.addEventListener('click', function () {
+    if (!reserva || pagando) return;
+    pagando = true;
+    pagar.disabled = true;
+    pagar.textContent = 'Preparando el pago…';
+    payError.hidden = true;
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(reserva),
+    })
+      .then(function (r) {
+        return r.json().then(
+          function (body) { return { ok: r.ok, status: r.status, body: body }; },
+          function () { return { ok: false, status: r.status, body: {} }; }
+        );
+      })
+      .then(function (res) {
+        if (res.ok && res.body && res.body.url) {
+          window.location.href = res.body.url;
+          return;
+        }
+        // 400/429 traen un mensaje pensado para mostrar; el resto, uno genérico
+        var claro = res.status === 400 || res.status === 429;
+        falloPago(
+          claro && res.body.error
+            ? res.body.error
+            : 'No pudimos preparar el pago. Probá de nuevo en un momento o escribime por WhatsApp.'
+        );
+      })
+      .catch(function () {
+        falloPago('No pudimos conectar. Revisá tu conexión y probá de nuevo.');
+      });
+  });
+
+  // Al volver con el botón "atrás" del navegador la página puede quedar congelada
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) botonListo();
+  });
+
+  // --- Al volver del checkout (?reserva=ok) se muestra el resultado ---
+  // El estado viene en la URL solo para mostrar un mensaje: el recibo y la
+  // confirmación real los maneja el servidor, no esta página.
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('reserva') === 'ok') {
+    var estado = (params.get('status') || params.get('collection_status') || '').toLowerCase();
+
+    if (estado === 'approved') {
+      titulo.textContent = '¡Gracias por tu reserva!';
+      resultText.textContent =
+        'Recibimos tu pago. En unos minutos te llega el recibo por mail, con los próximos pasos. Después te escribo por WhatsApp para coordinar la charla.';
+    } else if (estado === 'pending' || estado === 'in_process') {
+      titulo.textContent = 'Tu pago está en proceso';
+      resultText.textContent =
+        'Cuando se acredite te llega el recibo por mail y te escribo por WhatsApp para coordinar la charla.';
+    } else {
+      titulo.textContent = 'Tu reserva';
+      resultText.textContent =
+        'Si completaste el pago, el recibo te llega por mail. Si no pudiste completarlo, podés volver a intentarlo cuando quieras.';
+    }
+
+    abrirModal('resultado');
+    window.history.replaceState(null, '', window.location.pathname);
+  }
 })();
