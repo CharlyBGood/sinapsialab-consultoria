@@ -64,6 +64,8 @@ Puntos a recordar:
 | `STARTER_ALLOWED_ORIGINS` | No | Lista separada por comas; por defecto `https://starter.sinapsialab.com` |
 | `STARTER_BACK_URL` | No | Adónde vuelve el cliente tras pagar |
 | `STARTER_COMPANY_NAME` | No | Nombre que aparece como emisor; por defecto `SinapsiaLab` |
+| `STARTER_REPLY_TO` | No | Email al que le llega la respuesta del cliente al recibo (Reply-To) |
+| `STARTER_NOTIFY_EMAIL` | No | Casilla donde te avisa cuando se paga una reserva; sin esto no hay aviso |
 
 ### Pendiente antes del lanzamiento
 

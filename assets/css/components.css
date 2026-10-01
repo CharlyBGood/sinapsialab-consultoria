@@ -487,8 +487,8 @@
 }
 
 /* --- Botón flotante de contacto ---
-   Discreto: solo el ícono. A los 3 s se despliega "Hablemos" una vez como invitación
-   y se pliega; después, solo al pasar el mouse o enfocarlo con el teclado. */
+   Discreto: solo el ícono. Al pasar el mouse o enfocarlo con el teclado
+   muestra "Hablemos". Misma paleta y offset retro que el resto del sistema. */
 .wa {
   position: fixed;
   right: 16px;
@@ -496,53 +496,47 @@
   z-index: 50;
   display: inline-flex;
   align-items: center;
-  height: 52px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: #167344;
-  color: #FFFFFF;
+  height: 44px;
+  padding: 0 11px;
+  border-radius: var(--retro-radius-lg);
+  background: var(--surface);
+  color: var(--accent);
   text-decoration: none;
-  border: var(--retro-border) solid var(--ink);
+  border: var(--retro-border) solid var(--accent);
   box-shadow: -3px 4px 0 0 var(--retro-offset);
-  transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, padding .35s cubic-bezier(.2,.8,.2,1);
+  transition: background-color .15s ease, color .15s ease, padding .15s ease;
 }
 
-.wa__icon { width: 24px; height: 24px; flex-shrink: 0; }
+.wa__icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 .wa__label {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: .02em;
   white-space: nowrap;
   max-width: 0;
-  margin-left: 0;
   overflow: hidden;
   opacity: 0;
-  transform: translateX(-6px);
-  transition: max-width .35s cubic-bezier(.2,.8,.2,1), margin-left .35s cubic-bezier(.2,.8,.2,1),
-              opacity .25s ease .05s, transform .35s cubic-bezier(.2,.8,.2,1);
+  transition: max-width .18s ease, opacity .12s ease, margin-left .18s ease;
 }
 
 .wa:hover,
-.wa:focus-visible { padding-right: 20px; transform: translateY(-2px); box-shadow: -5px 6px 0 0 var(--retro-offset-strong); }
+.wa:focus-visible { background: var(--accent); color: var(--on-accent); padding-right: 14px; }
 .wa:hover .wa__label,
-.wa:focus-visible .wa__label { max-width: 120px; margin-left: 10px; opacity: 1; transform: none; }
-.wa:active { transform: translateY(0); box-shadow: -2px 3px 0 0 var(--retro-offset); }
+.wa:focus-visible .wa__label { max-width: 90px; margin-left: 8px; opacity: 1; }
 .wa:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-/* Invitación inicial: se despliega, espera y se pliega. */
-.wa { animation: wa-pad 5s cubic-bezier(.2,.8,.2,1) 3s 1 both; }
-.wa__label { animation: wa-label 5s cubic-bezier(.2,.8,.2,1) 3s 1 both; }
-
-@keyframes wa-pad { 0%, 100% { padding-right: 14px; } 12%, 85% { padding-right: 20px; } }
-@keyframes wa-label {
-  0%, 100% { max-width: 0; margin-left: 0; opacity: 0; transform: translateX(-6px); }
-  12%, 85% { max-width: 120px; margin-left: 10px; opacity: 1; transform: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .wa, .wa__label { transition: none; animation: none; }
+  .wa, .wa__label { transition: none; }
   .rsv-screen, .rsv-screen.is-closing { animation: none; }
 }
 
@@ -727,3 +721,40 @@
 
 .rsv__result { margin-top: 4px; }
 .rsv__result .cta { margin-top: 20px; }
+
+/* --- Enlaces legales (debajo del botón de reserva) y página legal --- */
+.legal-links {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 20px;
+  font-size: 14px;
+}
+
+.legal-links a { color: var(--ink); }
+
+.legal-links__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: var(--retro-border) solid var(--ink);
+  border-radius: var(--retro-radius);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.legal-links__btn:hover { border-color: var(--accent); color: var(--accent-tx); }
+.legal-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.legal p, .legal ul { margin-top: 12px; }
+.legal ul { padding-left: 20px; }
+.legal li { margin-top: 6px; }
+.legal a { color: var(--accent-tx); }
+.legal .legal-links__btn { color: var(--ink); margin-top: 16px; }
+.legal__back { display: inline-block; margin-top: 28px; }
+
+@media print { .legal-links { display: none; } }
