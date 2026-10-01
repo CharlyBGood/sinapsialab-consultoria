@@ -126,14 +126,14 @@
 
     if (!reserva.nombre || !reserva.negocio) return fallo('Completá tu nombre y el de tu negocio.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reserva.email)) return fallo('Revisá el email: parece incompleto.');
-    if (reserva.whatsapp.replace(/\D/g, '').length < 8) return fallo('Revisá el WhatsApp: faltan dígitos.');
+    if (reserva.whatsapp.replace(/\D/g, '').length < 8) return fallo('Revisá el teléfono: faltan dígitos.');
 
     datos.innerHTML = '';
     [
       ['Nombre', reserva.nombre],
       ['Negocio', reserva.negocio],
       ['Email', reserva.email],
-      ['WhatsApp', reserva.whatsapp],
+      ['Teléfono', reserva.whatsapp],
       ['Material', MATERIAL[reserva.material]],
     ].forEach(function (par) {
       var dt = document.createElement('dt');
