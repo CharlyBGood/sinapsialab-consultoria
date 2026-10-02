@@ -80,9 +80,10 @@
 }
 
 .item__note {
-  display: inline-block;
+  display: block;
   margin-top: 4px;
   font-size: 12px;
+  font-style: italic;
   color: var(--muted);
   opacity: .85;
 }
