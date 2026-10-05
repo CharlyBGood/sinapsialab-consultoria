@@ -173,7 +173,7 @@
 
 .price__n {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 9vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
   margin-top: 0.375rem;
@@ -523,7 +523,7 @@
   text-decoration: none;
   border: var(--retro-border) solid var(--accent);
   box-shadow: -3px 4px 0 0 var(--retro-offset);
-  transition: background-color .15s ease, color .15s ease, padding .15s ease;
+  transition: background-color .15s ease, color .15s ease, padding .15s ease, opacity .18s ease, transform .18s ease;
 }
 
 .wa__icon {
@@ -558,6 +558,9 @@
   .wa, .wa__label { transition: none; }
   .rsv-screen, .rsv-screen.is-closing { animation: none; }
 }
+
+/* Se oculta mientras el footer está a la vista, para no tapar su texto */
+.wa.is-hidden { opacity: 0; transform: translateY(0.5rem); pointer-events: none; }
 
 @media print { .wa { display: none; } }
 
@@ -774,6 +777,11 @@
 .legal li { margin-top: 0.375rem; }
 .legal a { color: var(--accent-tx); }
 .legal .legal-links__btn { color: var(--ink); margin-top: 1rem; }
-.legal__back { display: inline-block; margin-top: 1.75rem; }
+.legal__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: 1.25rem;
+}
 
 @media print { .legal-links { display: none; } }

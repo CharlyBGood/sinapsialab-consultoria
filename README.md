@@ -1,6 +1,6 @@
 # SinapsiaLab — Starter Pack Digital
 
-Página del Starter Pack Digital: una charla sobre el emprendimiento del cliente + sitio de una página con WhatsApp, guía para emprendedores y plan de acción personalizado.
+Página del Starter Pack Digital: una charla sobre el emprendimiento del cliente + sitio de una página con llamado a la acción, guía para emprendedores y plan de acción personalizado.
 
 - **Publicada en:** https://starter.sinapsialab.com/ (Cloudflare Pages, deploy automático al hacer push a `main`)
 - **Única fuente de verdad.** La página que vivía en `sinapsialab-astro` (`/starter/`) fue eliminada. En ese repo sobrevive solo la tarjeta del home (`src/components/StarterPackSection.tsx` + `src/components/starter/content.ts`), que enlaza acá. Si cambia el precio o el texto del hero, hay que replicarlo en ese `content.ts`.
