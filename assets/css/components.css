@@ -672,6 +672,41 @@
 
 .rsv__hint { font-size: 0.75rem; color: var(--muted); opacity: .85; }
 
+/* Campo de dominio: input + botón "Verificar" en una fila */
+.rsv__inline { display: flex; gap: 10px; }
+.rsv__inline .rsv__input { flex: 1; min-width: 0; }
+
+.rsv__check {
+  flex: none;
+  min-height: 3rem;
+  padding: 0 1rem;
+  background: var(--grad-3);
+  color: var(--ink-light);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: var(--retro-border) solid var(--line);
+  border-radius: var(--retro-radius);
+  box-shadow: -3px 4px 0 0 var(--retro-offset);
+  cursor: pointer;
+}
+
+.rsv__check:hover:not(:disabled) { background: var(--accent); color: var(--on-accent); }
+.rsv__check:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.rsv__check:disabled { opacity: .7; cursor: progress; }
+
+.rsv__status {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border-left: 4px solid;
+  border-radius: var(--retro-radius);
+}
+
+.rsv__status[hidden] { display: none; }
+.rsv__status[data-kind='ok'] { background: #12301f; color: #c4ecd0; border-color: #3fae6a; }
+.rsv__status[data-kind='bad'] { background: #3A1A1A; color: #F6C7B8; border-color: #C9663A; }
+
 .rsv__error {
   margin: 0;
   padding: 0.75rem 0.875rem;

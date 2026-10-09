@@ -31,6 +31,7 @@ starter.sinapsialab.com
         │  POST (JSON, sin precio)
         ▼
 pfff.sinapsialab.com/api/public/starter-reserve        (repo expense-tracker-react)
+pfff.sinapsialab.com/api/public/starter-domain         (repo expense-tracker-react) — búsqueda de dominio .com; solo consulta
   valida → crea orden de pago pendiente (tipo `orden_pago`, a nombre de Charly)
   → crea preferencia de pago → devuelve { ok, url }
         │  redirección

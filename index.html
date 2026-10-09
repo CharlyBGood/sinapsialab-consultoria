@@ -82,12 +82,12 @@
                 Con un flyer de tu proyecto o hasta 5 fotos de tus trabajos
                 recibirás el sitio listo para compartir, online durante 12 meses
                 desde su publicación. Sin fotos, usamos imágenes ilustrativas
-                que se pueden modificar. Así se verá la URL:
-                <span class="url-badge"
-                  >sinapsialinks.com/<wbr />tu-empresa</span
-                >
+                que se pueden modificar. Incluye tu propio dominio .com durante
+                12 meses, para que se vea así:
+                <span class="url-badge">www.<wbr />tu-empresa.com</span>
                 <span class="item__note"
-                  >Dominio propio: se cotiza aparte.</span
+                  >Sujeto a disponibilidad del nombre. Otras extensiones se
+                  cotizan aparte.</span
                 >
               </p>
             </div>
@@ -123,7 +123,7 @@
           <li class="piece">
             <span class="piece__n">1</span>
             <span class="piece__t">Tu página web</span>
-            <span class="piece__d">publicada y vigente durante 12 meses</span>
+            <span class="piece__d">con dominio .com, vigente durante 12 meses</span>
           </li>
           <li class="piece">
             <span class="piece__n">2</span>
@@ -203,9 +203,9 @@
               </div>
             </div>
             <p class="demo__cap">
-              Tu página web lista para compartir, online durante 12 meses. —
+              Tu página web lista para compartir, con tu propio dominio .com, online durante 12 meses. —
               <span class="demo__cap--note">
-                Dominio propio (e.j. www.tusitio.com) se cotiza aparte.
+                Sujeto a disponibilidad del nombre (e.j. www.tusitio.com).
               </span>
             </p>
           </div>
@@ -373,7 +373,7 @@
           <div class="box">
             <h3>Lo que te queda</h3>
             <p>
-              El sitio (online 12 meses desde su publicación), la guía y el plan
+              El sitio con tu dominio .com (online 12 meses desde su publicación), la guía y el plan
               de acción para que puedas avanzar.
             </p>
           </div>
@@ -384,9 +384,9 @@
         <div class="price">
           <div>
             <div class="price__lbl">
-              Charla + sitio online 12 meses + guía + plan de acción
+              Charla + sitio con dominio .com 12 meses + guía + plan de acción
             </div>
-            <div class="price__n">$132.000 ARS</div>
+            <div class="price__n">$150.000 ARS</div>
           </div>
           <p class="price__note">
             Se abona al reservar. Lo recibís dentro de los 5 días hábiles
@@ -527,6 +527,38 @@
                 <option value="nada">Todavía no tengo nada</option>
               </select>
             </div>
+
+            <div class="rsv__field rsv__field--full">
+              <label for="rsv-dominio">Dominio .com para tu sitio (opcional)</label>
+              <div class="rsv__inline">
+                <input
+                  class="rsv__input"
+                  id="rsv-dominio"
+                  name="dominio"
+                  type="text"
+                  inputmode="url"
+                  autocapitalize="none"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="minegocio.com"
+                />
+                <button class="rsv__check" type="button" id="rsv-dominio-check">
+                  Verificar
+                </button>
+              </div>
+              <p
+                class="rsv__status"
+                id="rsv-dominio-status"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></p>
+              <span class="rsv__hint"
+                >Está incluido en el pack, si el nombre está disponible. Si
+                todavía no lo sabés, dejalo vacío y lo definimos en la
+                charla.</span
+              >
+            </div>
           </div>
 
           <p class="rsv__error" id="rsv-error" role="alert" hidden></p>
@@ -564,11 +596,11 @@
           <p class="tag">Tu reserva</p>
           <div class="rsv__summary">
             <div class="rsv__row">
-              <span>Starter Pack Digital</span><b>$132.000 ARS</b>
+              <span>Starter Pack Digital</span><b>$150.000 ARS</b>
             </div>
             <div class="rsv__row rsv__row--sub">
               <span
-                >Charla + sitio online 12 meses + guía + plan de acción</span
+                >Charla + sitio con dominio .com 12 meses + guía + plan de acción</span
               >
             </div>
             <dl class="rsv__data" id="rsv-datos"></dl>

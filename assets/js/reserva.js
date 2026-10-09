@@ -7,6 +7,8 @@
 
 (function () {
   var ENDPOINT = 'https://pfff.sinapsialab.com/api/public/starter-reserve';
+  // Búsqueda de dominio .com: solo consulta disponibilidad (no registra nada)
+  var DOMAIN_ENDPOINT = 'https://pfff.sinapsialab.com/api/public/starter-domain';
   var TITULO = 'Reservar la consultoría';
 
   var abrir = document.getElementById('rsv-open');
@@ -22,8 +24,11 @@
   var payError = document.getElementById('rsv-pay-error');
   var pagar = document.getElementById('rsv-pagar');
   var back = document.getElementById('rsv-back');
+  var dominioInput = document.getElementById('rsv-dominio');
+  var dominioBtn = document.getElementById('rsv-dominio-check');
+  var dominioEstado = document.getElementById('rsv-dominio-status');
 
-  if (!modal || !form) return;
+  if (!modal || !form || !dominioInput || !dominioBtn || !dominioEstado) return;
 
   var ultimoFoco = null;
   var reserva = null;
@@ -100,6 +105,81 @@
     }
   });
 
+  // --- Dominio .com: el cliente lo verifica antes de reservar ---
+  // Solo un dominio confirmado como disponible viaja con la reserva; si cambia el texto, se verifica de nuevo.
+  var dominioVerificado = null;
+
+  function estadoDominio(texto, tipo) {
+    error.hidden = true; // el aviso de "verificá el dominio" ya no corresponde
+    dominioEstado.textContent = texto;
+    dominioEstado.hidden = !texto;
+    if (tipo) dominioEstado.setAttribute('data-kind', tipo);
+  }
+
+  dominioInput.addEventListener('input', function () {
+    dominioVerificado = null;
+    estadoDominio('');
+  });
+
+  function verificarDominio() {
+    var escrito = dominioInput.value.trim();
+    if (!escrito) return estadoDominio('Escribí el nombre que querés (por ejemplo: minegocio.com).', 'bad');
+
+    dominioBtn.disabled = true;
+    dominioBtn.textContent = 'Verificando…';
+    estadoDominio('');
+
+    fetch(DOMAIN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dominio: escrito }),
+    })
+      .then(function (r) {
+        return r.json().then(
+          function (body) { return { ok: r.ok, status: r.status, body: body }; },
+          function () { return { ok: false, status: r.status, body: {} }; }
+        );
+      })
+      .then(function (res) {
+        // Si mientras tanto cambió el texto, la respuesta ya no corresponde
+        if (dominioInput.value.trim() !== escrito) return;
+        var b = res.body || {};
+        if (res.ok && b.dominio && typeof b.disponible === 'boolean') {
+          dominioInput.value = b.dominio;
+          if (b.disponible) {
+            dominioVerificado = b.dominio;
+            estadoDominio('✓ ' + b.dominio + ' está disponible.', 'ok');
+          } else {
+            estadoDominio(b.dominio + ' ya está registrado. Probá con otro nombre.', 'bad');
+          }
+          return;
+        }
+        var claro = res.status === 400 || res.status === 429 || res.status === 503;
+        estadoDominio(
+          claro && b.error
+            ? b.error
+            : 'No pudimos verificarlo ahora. Probá de nuevo o dejalo vacío y lo definimos en la charla.',
+          'bad'
+        );
+      })
+      .catch(function () {
+        if (dominioInput.value.trim() === escrito) {
+          estadoDominio('No pudimos conectar. Revisá tu conexión y probá de nuevo.', 'bad');
+        }
+      })
+      .then(function () {
+        dominioBtn.disabled = false;
+        dominioBtn.textContent = 'Verificar';
+      });
+  }
+
+  dominioBtn.addEventListener('click', verificarDominio);
+  dominioInput.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    verificarDominio();
+  });
+
   // --- Paso 1: validar y mostrar el resumen (todavía no se llama a nada) ---
   function fallo(msg) {
     error.textContent = msg;
@@ -114,6 +194,10 @@
     e.preventDefault();
     error.hidden = true;
 
+    if (dominioInput.value.trim() && !dominioVerificado) {
+      return fallo('Verificá que el dominio esté disponible, o dejá el campo vacío y lo definimos en la charla.');
+    }
+
     var d = new FormData(form);
     reserva = {
       nombre: (d.get('nombre') || '').trim(),
@@ -121,6 +205,7 @@
       email: (d.get('email') || '').trim(),
       whatsapp: limpiarTelefono((d.get('whatsapp') || '').trim()),
       material: d.get('material') || 'flyer',
+      dominio: dominioVerificado || '',
       website: d.get('website') || '', // campo trampa: un humano lo deja vacío
     };
 
@@ -135,6 +220,7 @@
       ['Email', reserva.email],
       ['Teléfono', reserva.whatsapp],
       ['Material', MATERIAL[reserva.material]],
+      ['Dominio', reserva.dominio || 'Lo definimos en la charla'],
     ].forEach(function (par) {
       var dt = document.createElement('dt');
       dt.textContent = par[0];
